@@ -1,64 +1,89 @@
 {% load bootstrap3 %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
+<style>
+body {
+  margin-top: 0;
+  background: #cccccc;
+}
+.container-fluid{
+  padding:10px;
+}
+ .nav-icon {
+  width: 26px;
+  margin-right: 20px;
+  float: right;
+}
+.input-group{
+  padding-left:300px;
+  
+
+}
+#logo-icon{
+  border-right: 1px solid black;
+  padding-left: 50px;
+  padding-right: 10px;
+}
+
+ /* #logo-name {
+float: left;
+padding-left: 65px;
+} */
+/*
+#logo-icon {
+width: 50px;
+padding-right: 20px;
+padding-top: 3px;
+border-right: 1px solid black;
+float: left;
+}
+#input-field {
+width: 200px;
+border-radius: 3px;
+border: 1px solid #cccccc;
+height: 25px;
+padding-left: 10px;
+} */
+</style>
 <body>
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-dark bg-light " role="navigation">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="{% url 'index' %}">Home</a>
-        <!--  -->
-      <a class="navbar-brand" href='/admin' >Admin</a>
-      <a class="navbar-brand" href='profile' user.id>profile</a>
-    
+      <div id='left'>
+        <a href='/'><img
+            src='https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Instagram_simple_icon.svg/25px-Instagram_simple_icon.svg.png'
+            id='logo-icon'></a>
+        <a href='/'><img
+            src='https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/100px-Instagram_logo.svg.png'
+            id='logo-name'></a>
+      </div>
     </div>
-    <!-- adding a search form   -->
-  
- <!-- end search form end  -->
- <!--The search form above-->
- <div class="col-sm-6 col-md-6">
-  {% if user.is_authenticated %}
- <ul>
-  <li class="dropdown">
-    <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" role="button" aria-expanded="false">Account
-              <span class="caret"></span>
-          </a>
-    <ul class="dropdown-menu" role="menu">
-      <li>
+    <div id='center'>
+      <form class="navbar-form" role="search" action="{% url 'search' %}">
+
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search user" name="user">
+          <div class="input-group-btn">
+            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+    <div id='right'>
       
-      </li>
-      <li>
-        <a href="{%url 'new_post' %}">Create  New Post</a>
-      </li>
-      <li>
-        <a href="{%url 'profile' user.id %}">Profile</a>
-      </li>
-
-      <li>
-        <a href="/accounts/password/change">Change Password</a>
-      </li>
-      <li>
-        <a href="/logout">Logout</a>
-      </li>
-    </ul>
-    {% else %}
-    
-    
-  </li>
-  <li>
-    <a class='btn btn-default' href="/accounts/login">Login</a>
-  </li>
-
-  {% endif %}
-</ul>
-</div>
-</div>
+      <a class="mr-2" href="#"><img src='http://image.flaticon.com/icons/png/128/126/126471.png' class='nav-icon'></a>
+      <a class="mr-2" href="{% url 'profile' request.user.id %}"><img src='http://freeiconbox.com/icon/256/23228.png' class='nav-icon'></a>
+    </div>
+  </div>
 </nav>
 </body>
-</html> 
-
-
+</html>
