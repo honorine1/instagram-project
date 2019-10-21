@@ -16,6 +16,7 @@ class Profile(models.Model):
     
     def __str__(self):
         return self.user.username
+    
 
     def save_profile(self):
         self.save()
@@ -23,6 +24,11 @@ class Profile(models.Model):
     @classmethod
     def delete_profile(cls,profile):
         cls.objects.filter(profile=profile).delete()
+
+    @classmethod
+    def search_by_username(cls,search_term):
+        user = cls.objects.filter(user__username__icontains=search_term)
+        return user
     
 class Image(models.Model):
     image = models.ImageField(upload_to='instagram_photos/', blank=True, null=True)
@@ -31,7 +37,7 @@ class Image(models.Model):
     # image_caption = models.CharField(max_length = 50)
     likes = models.IntegerField(default=None,null=True)
     image_comment = models.CharField(max_length = 1000)
-    profile = models.ForeignKey(Profile) 
+    profile = models.ForeignKey(Profile,null=True) 
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     created_date = models.DateTimeField(auto_now_add=True)
  
@@ -39,6 +45,10 @@ class Image(models.Model):
         return self.image_name 
     def save_image(self):
         self.save()
+
+
+  
+   
     
     @classmethod
     def delete_image(cls,image):
