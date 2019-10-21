@@ -10,9 +10,10 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-        <a class="navbar-brand" href="{% url 'index' %}">Home</a>
-        <a class="navbar-brand" href="{% url 'index' %}">Post</a>
+      <a class="navbar-brand" href="{% url 'index' %}">Home</a>
+        <!--  -->
       <a class="navbar-brand" href='/admin' >Admin</a>
+      <a class="navbar-brand" href='profile' user.id>profile</a>
     
     </div>
     <!-- adding a search form   -->
@@ -20,33 +21,44 @@
  <!-- end search form end  -->
  <!--The search form above-->
  <div class="col-sm-6 col-md-6">
-    {% if editor.is_authenticated %}
-    <ul>
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" role="button" aria-expanded="false">Account
-                  <span class="caret"></span>
-              </a>
-        <ul class="dropdown-menu" role="menu">
-          <li>
-            <a href="{%url 'index'%}">Home</a>
-          </li>
-          <li>
-            <a href="/accounts/password/change">Change Password</a>
-          </li>
-          <li>
-            <a href="/logout">Logout</a>
-          </li>
-        </ul>
+  {% if user.is_authenticated %}
+ <ul>
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" role="button" aria-expanded="false">Account
+              <span class="caret"></span>
+          </a>
+    <ul class="dropdown-menu" role="menu">
+      <li>
+      
+      </li>
+      <li>
+        <a href="{%url 'new_post' %}">Create  New Post</a>
+      </li>
+      <li>
+        <a href="{%url 'profile' user.id %}">Profile</a>
+      </li>
+
+      <li>
+        <a href="/accounts/password/change">Change Password</a>
+      </li>
+      <li>
+        <a href="/logout">Logout</a>
       </li>
     </ul>
     {% else %}
-    <li>
-      <a class='btn btn-default' href="/accounts/login">Login</a>
-    </li>
+    
+    
+  </li>
+  <li>
+    <a class='btn btn-default' href="/accounts/login">Login</a>
+  </li>
 
-    {% endif %}
-  </div>
-  </div>
+  {% endif %}
+</ul>
+</div>
+</div>
 </nav>
 </body>
-</html>
+</html> 
+
+
