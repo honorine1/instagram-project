@@ -37,7 +37,7 @@ def new_post(request):
             image = form.save(commit=False)
             image.user = current_user
             image.save()
-            return redirect('postsToday/')
+            return redirect('index')
 
     else:
         form = ImageForm()
@@ -119,4 +119,19 @@ def updateProfile(request):
         else:
             form=ProfileForm()
 
-    return render(request,'my-instagram/update_profile.html',{"form":form})        
+    return render(request,'my-instagram/update_profile.html',{"form":form}) 
+
+@login_required(login_url='/accounts/login/')
+def search_results(request):
+
+    if 'user' in request.GET and request.GET["user"]:
+        search_term = request.GET.get("user")
+        searched_user = Profile.search_by_username(search_term)
+        message = f"{search_term}"
+
+        return render(request, 'my-instagram/search.html',{"message":message,"searched_user": searched_user})
+
+    else:
+        message = "You haven't searched for any term"
+        return render(request, 'my-instagram/search.html',{"message":message})
+                   
