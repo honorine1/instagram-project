@@ -44,7 +44,7 @@
           <h5>
 
             {{image.image_caption}}
-            <a href="{%url 'comment' image.id %}">Leave us a comment </a>
+            <a href="{%url 'comment' user.id %}">Leave us a comment </a>
             <small class="text-muted">Posted {{image.created_date|timesince}} by {{image.user.username}}</small>
           
           </h5>
