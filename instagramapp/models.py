@@ -4,7 +4,7 @@ import datetime as dt
 from django.db import models
 from django.contrib.auth.models import User
 from tinymce.models import HTMLField
-from django.db.models.signals import post_save
+
 
 # Create your models here.
 class Profile(models.Model):
@@ -24,7 +24,9 @@ class Profile(models.Model):
     @classmethod
     def delete_profile(cls,profile):
         cls.objects.filter(profile=profile).delete()
-
+    
+   
+        
     @classmethod
     def search_by_username(cls,search_term):
         user = cls.objects.filter(user__username__icontains=search_term)
@@ -33,10 +35,9 @@ class Profile(models.Model):
 class Image(models.Model):
     image = models.ImageField(upload_to='instagram_photos/', blank=True, null=True)
     image_name = models.CharField(max_length = 50)
-    image_caption = HTMLField()
-    # image_caption = models.CharField(max_length = 50)
+    image_caption = models.TextField()
     likes = models.IntegerField(default=None,null=True)
-    image_comment = models.CharField(max_length = 1000)
+    # image_comment = models.CharField(max_length = 1000)
     profile = models.ForeignKey(Profile,null=True) 
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     created_date = models.DateTimeField(auto_now_add=True)
@@ -45,11 +46,6 @@ class Image(models.Model):
         return self.image_name 
     def save_image(self):
         self.save()
-
-
-  
-   
-    
     @classmethod
     def delete_image(cls,image):
         cls.objects.filter(image=image).delete()
@@ -72,7 +68,13 @@ class Image(models.Model):
     
    
  
+class Comment(models.Model):
+    comment_content = models.CharField(max_length=300)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    image = models.ForeignKey(Image,on_delete=models.CASCADE)
 
+    def save_comment(self):
+        self.save()
 class Follower(models.Model):
     followers = models.IntegerField(default=None)
     followings = models.IntegerField(default=None)
