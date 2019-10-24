@@ -9,10 +9,11 @@ urlpatterns=[
 url(r'^$',views.index,name='index'),
 url(r'^posts/', views.posts, name='posts'),
 url(r'^new/post/$', views.new_post, name='new_post'),
-url(r'^new/post/postsToday/',views.posts_today,name='postsToday'),
 url(r'^profile/(\d+)',views.profile,name = 'profile'),
 url(r'^updateProfile',views.updateProfile,name = 'updateProfile'),
-url(r'^search',views.search_results,name = 'search')
+url(r'^search',views.search_results,name = 'search'),
+url(r'^comment/(\d+)/$',views.comment,name='comment')
+
 ]
 
 
