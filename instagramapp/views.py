@@ -2,19 +2,44 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render,redirect
-from .forms import ImageForm, ProfileForm
+from .forms import ImageForm, ProfileForm,CommentForm
 import datetime as dt
 from .models import User,Image,Profile,Follower
 from django.contrib.auth.decorators import login_required
 from django.http  import HttpResponse,HttpResponseRedirect
+# from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
+
 
 
 
 # Create your views here.
 @login_required(login_url='/accounts/login/')
 def index(request):
+    current_user = request.user
+    images= Image.objects.all().order_by("created_date")
+    profile= Profile.objects.all()
+    # comments=Comment.objects.all()
     
-    return render(request,'my-instagram/index.html')
+
+    # if request.method == 'POST':
+    #     form = CommentForm(request.POST)
+    #     if form.is_valid():
+    #         post_id = int(request.POST.get("idpost"))
+    #         post = Post.objects.get(id = post_id)
+    #         comment = form.save(commit=False)
+    #         comment.user = request.user
+    #         comment.post = post
+    #         comment.save()
+    #         return redirect('index')
+
+    #     else:
+    #         form = CommentForm()
+
+
+
+
+    
+    return render(request,'my-instagram/index.html',{"images":images})
 
 @login_required(login_url='/accounts/login/')
 def posts(request, post_id):
@@ -25,6 +50,7 @@ def posts(request, post_id):
     except DoesNotExist:
         raise Http404()
     return render(request,"my-instagram/post.html", {"posts":posts})
+
 
 
 @login_required(login_url='/accounts/login/')
@@ -48,21 +74,19 @@ def new_post(request):
 
 
 
-def posts_today(request):
-    date = dt.date.today()
-    posts = Image.todays_posts()
-    if request.method == 'POST':
-        form = ImageForm(request.POST)
-        if form.is_valid():
-            image = form.cleaned_data['your_image']
-            image_description = form.cleaned_data['image_description']
-            # recipient = NewsLetterRecipients(name = name,email =email)
-            # recipient.save()
-            # send_welcome_email(name,email)
-            return redirect('new/post/postToday/')
-    else:
-        form = ImageForm()
-    return render(request, 'my-instagram/today-post.html', {"date": date,"posts":posts,"letterForm":form})
+# def posts_today(request):
+#     date = dt.date.today()
+#     posts = Image.todays_posts()
+#     if request.method == 'POST':
+#         form = ImageForm(request.POST)
+#         if form.is_valid():
+#             image = form.cleaned_data['your_image']
+#             image_description = form.cleaned_data['image_description']
+#           ail)
+#             return redirect('new/post/postToday/')
+#     else:
+#         form = ImageForm()
+#     return render(request, 'my-instagram/today-post.html', {"date": date,"posts":posts,"letterForm":form})
 
 @login_required(login_url='/accounts/login/')
 def profile(request,profile_id):
@@ -82,7 +106,7 @@ def profile(request,profile_id):
     user=User.objects.all()
 
     images = Image.objects.filter(profile = profile_id)
-    # title = User.objects.get(user = current_user).username
+
     profile = Profile.objects.filter(user = profile_id)
 
     # if Follower.objects.filter(followings=request.user,followers=user).exists():
@@ -134,4 +158,32 @@ def search_results(request):
     else:
         message = "You haven't searched for any term"
         return render(request, 'my-instagram/search.html',{"message":message})
+
+@login_required(login_url='/accounts/login/')     
+def comment(request,user_id):
+    current_user=request.user
+    
+    image = Image.objects.all()
+    if request.method=='POST':
+        form=CommentForm(request.POST,request.FILES)
+        if form.is_valid():
+            comment=form.save(commit=False)
+            comment.image=image
+            comment.save()
+            return redirect('index')
+    else:
+        form=CommentForm()
+    
+    return render(request,'my-instagram/comment.html',{"form":form,"image":image})
+
+# def register(request):
+#     if request.method =='POST':
+#         form=UserCreationForm(request.POST)
+#         if form.is_valid():
+#             user=form.save()
+#             login(request,user)
+#             return redirect('registration/login.html')
+#     else:
+#         form=UserCreationForm()
+#     return render(request,'registration/registration_form.html,{'form':form})
                    
