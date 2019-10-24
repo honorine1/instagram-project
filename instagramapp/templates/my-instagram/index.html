@@ -1,70 +1,69 @@
 {% extends 'my-instagram/base.html' %}
-{% block content %}  
+{% block content %}
 
-  <!-- <div class="container">
-        <h1>My instagram</h1>
+<style>
+  #allimge {
+  
+    border-radius: 50%;
+    margin-left: 10px;
+  }
+</style>
 
-        
-         
-        
-          {%for image in images%}
-            <div class="row" style="padding-bottom:20px">
-            <div class="col-md-2"></div>
-              <div class="col-md-8">
-                <img src="{{image.image.url}}" alt="" style="width:170px; height:170px">
-              </div>
-              
-               <h1><strong>{{image.user.username}}</strong></h1>
-               
-               <h4>{{image.image_description}}</h4>
-                <a class="btn btn-sm btn-primary" href="{% url 'updateProfile' %}"> Update Profile</a> 
-              
-       
-            
-            
-            <div class="col-md-2"></div>
+{%for image in images%}
+
+
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-8">
+
+    <div class="accordion" id="accordionExample">
+      <div class="card">
+        <div class="card-header" id="headingOne">
+
+
+
+
+
+          <h5 class="mb-0">
+
+            <a href="{%url 'profile' user.id %}"> <img id="allimge" src="{{image.profile.profile_pic.url}}" alt=""
+                style="width:50px; height:50px"> </a>
+            {{image.user.username}}
+
+          </h5>
+        </div>
+
+        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+          <div class="card-body">
+            <img class="center-block img-responsive " src="{{image.image.url}}" alt="" style="width:800px; height:400px">
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="headingTwo">
+          <h5>
+
+            {{image.image_caption}}
+            <a href="{%url 'comment' image.id %}">Leave us a comment </a>
+            <small class="text-muted">Posted {{image.created_date|timesince}} by {{image.user.username}}</small>
           
-          {% endfor %}
-         
-        
-            
-           
-            
-            </div>
-        
+          </h5>
           
-        
-       
-         -->
-         {%for image in images%}
-         <div class="card-deck">
-          <div class="card">
-            <img  class="card-img-top"  src="{{image.profile.profile_pic.url}}" alt="" style="width:70px; height:70px">
-            <div class="card-body">
-              <h4 class="card-title">{{image.image_name}}</h4>
-              <img class="card-text"  src="{{image.image.url}}" alt="" style="width:500px; height:300px">
-              <p class="card-text"><small class="text-muted">Posted {{image.created_date|timesince}} by {{image.user.username}}</small></p>
-            </div>
-          </div>
-         </div>
-         {% endfor %}
-          <!-- <div class="card">
-            <img class="card-img-top" src=".../100px200/" alt="Card image cap">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-          </div>
-          <div class="card">
-            <img class="card-img-top" src=".../100px200/" alt="Card image cap">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-          </div>
-        </div> -->
+        </div>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+          <!-- <div class="card-body">
+            Add a comment
+          </div> -->
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+{% endfor %}
 
 
-  {%endblock%}
+
+{%endblock%}
