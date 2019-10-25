@@ -59,7 +59,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 # Application definition
 INSTALLED_APPS = [
-   'bootstrap4',
+   'bootstrap3',
    'awardapp',
    'django.contrib.admin',
    'django.contrib.auth',
