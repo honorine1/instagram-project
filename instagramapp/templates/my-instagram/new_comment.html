@@ -1,0 +1,19 @@
+<!-- {%extends "my-instagram/base.html"%}
+
+
+{% block content%}
+<div class="card">
+    <div class="panel panel-default" style="padding-top:-200px">
+    {% for comment in image.comments.all %}
+    
+              <p > {{comment.comment}}</p>
+               
+        
+      {% empty %}
+      <p>No comments yet</p>
+    
+    </div>   
+    </div>
+    {% endfor %}
+
+    {%endblock%} -->

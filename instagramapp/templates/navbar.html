@@ -31,6 +31,7 @@
     .nav-icon {
         width: 26px;
         margin-right: 20px;
+        color:black;
     }
     #logo-name {
         float: left;
@@ -81,8 +82,10 @@
                        
                 <a class="mr-2" href="{% url 'updateProfile'%}"><img
                         src='https://img.icons8.com/cotton/2x/create-new--v3.png' class='nav-icon'></a>
+                 
                         
                 <a class="mr-2" href="{% url 'profile' user.id%}">{{user.username}}</a>
+                <a class="mr-2" href="/logout"><img src="https://img.icons8.com/pastel-glyph/50/000000/shutdown.png" class='nav-icon'></a>
             </div>
             {%endif%}
         </div>

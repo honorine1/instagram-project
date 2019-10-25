@@ -12,7 +12,9 @@ url(r'^new/post/$', views.new_post, name='new_post'),
 url(r'^profile/(\d+)',views.profile,name = 'profile'),
 url(r'^updateProfile',views.updateProfile,name = 'updateProfile'),
 url(r'^search',views.search_results,name = 'search'),
-url(r'^comment/(\d+)/$',views.comment,name='comment')
+# url(r'^new/comment/$',views.comment,name='new_comment'),
+# url(r'^comment/$',views.comment,name='comment')
+
 
 ]
 

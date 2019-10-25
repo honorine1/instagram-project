@@ -10,3 +10,4 @@ from .models import Image,Profile,Follower
 admin.site.register(Image)
 admin.site.register(Profile)
 admin.site.register(Follower)
+# admin.site.register(Comment)

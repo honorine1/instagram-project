@@ -35,7 +35,7 @@ class Profile(models.Model):
 class Image(models.Model):
     image = models.ImageField(upload_to='instagram_photos/', blank=True, null=True)
     image_name = models.CharField(max_length = 50)
-    image_caption = models.TextField()
+    image_caption = HTMLField()
     likes = models.IntegerField(default=None,null=True)
     # image_comment = models.CharField(max_length = 1000)
     profile = models.ForeignKey(Profile,null=True) 

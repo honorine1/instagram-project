@@ -1,4 +1,5 @@
 {% extends 'my-instagram/base.html' %}
+{% load bootstrap3 %}
 {% block content %}
 
 <style>
@@ -26,8 +27,7 @@
 
           <h5 class="mb-0">
 
-            <a href="{%url 'profile' user.id %}"> <img id="allimge" src="{{image.profile.profile_pic.url}}" alt=""
-                style="width:50px; height:50px"> </a>
+        
             {{image.user.username}}
 
           </h5>
@@ -42,22 +42,28 @@
       <div class="card">
         <div class="card-header" id="headingTwo">
           <h5>
-
-            {{image.image_caption}}
-            <a href="{%url 'comment' user.id %}">Leave us a comment </a>
-            <small class="text-muted">Posted {{image.created_date|timesince}} by {{image.user.username}}</small>
+           <p> {% autoescape on %}
+            {{image.image_caption| safe}}
+            {% endautoescape %} 
+            
+          </p>
+            <small class="text-muted">Posted {{image.created_date|timesince}} by {{image.user.username}}</small><br>
           
+                
+                      
+           
           </h5>
           
         </div>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-          <!-- <div class="card-body">
-            Add a comment
-          </div> -->
-        </div>
+    
       </div>
 
+
     </div>
+
+
+  </div>
+</div>
 
   </div>
 
