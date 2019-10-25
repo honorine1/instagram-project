@@ -105,7 +105,7 @@ def search_results(request):
     if 'user' in request.GET and request.GET["user"]:
         search_term = request.GET.get("user")
         searched_user = Profile.search_by_username(search_term)
-        message = f"{search_term}"
+        # message = f"{search_term}"
 
         return render(request, 'my-instagram/search.html',{"message":message,"searched_user": searched_user})
 

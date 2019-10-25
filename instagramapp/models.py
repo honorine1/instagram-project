@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 import datetime as dt
 from django.db import models
 from django.contrib.auth.models import User
-from tinymce.models import HTMLField
 
 
 # Create your models here.
@@ -35,7 +34,7 @@ class Profile(models.Model):
 class Image(models.Model):
     image = models.ImageField(upload_to='instagram_photos/', blank=True, null=True)
     image_name = models.CharField(max_length = 50)
-    image_caption = HTMLField()
+    image_caption = models.TextField(blank=True)
     likes = models.IntegerField(default=None,null=True)
     # image_comment = models.CharField(max_length = 1000)
     profile = models.ForeignKey(Profile,null=True) 
